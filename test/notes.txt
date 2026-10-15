@@ -1,0 +1,5 @@
+athleticsireland notes
+
+athleticsIreland is a wp site with public API returning JSON of all event fixtures
+robots.txt allows pretty much everything
+fixtures json GET returns code 200 :D
