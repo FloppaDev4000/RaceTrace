@@ -3,3 +3,8 @@ athleticsireland notes
 athleticsIreland is a wp site with public API returning JSON of all event fixtures
 robots.txt allows pretty much everything
 fixtures json GET returns code 200 :D
+
+athleticsIreland archive goes from 199X to 2013, events NOT races
+links to results htm or pdf with inconsistent format
+
+FIXTURES
