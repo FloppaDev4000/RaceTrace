@@ -5,3 +5,8 @@ class RaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Race
         fields = "__all__"
+
+class ResultSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Race
+        fields = "__all__"
