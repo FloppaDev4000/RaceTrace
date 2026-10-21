@@ -28,11 +28,3 @@ def demo(request):
 def home(request):
   template = loader.get_template('home.html')
   return HttpResponse(template.render())
-
-def test(request):
-   template = loader.get_template("test.html")
-   races = athletics_ireland.get_data()
-   context = {
-      "races": races
-   }
-   return HttpResponse(template.render(context, request))
