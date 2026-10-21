@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Test{% endblock title %}
+
+{% block content %}
+<h1>AthleticsIreland Test</h1>
+<p>list of fixtures retrieved from AthleticsIreland:</p>
+{% for race in races %}
+        <h3>{{ race.title }}</h3>
+        <ul>
+            <li>date ran: {{ race.dateRan }}</li>
+            <li>location: {{ race.location }}</li>
+            <li>distance: {{ race.distanceKm }}km</li>
+            <li>src:      {{ race.sourceUrl }}</li>
+        </ul>
+    {% endfor %}
+{% endblock content %}

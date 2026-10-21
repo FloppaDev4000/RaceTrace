@@ -5,6 +5,7 @@
 {% block content %}
 <h1>Home</h1>
 <a href={% url "demo" %}>demo</a>
+<a href={% url "test" %}>test</a>
 <ul>
     {% for race in races %}
         <li>{{ race.title }}</li>

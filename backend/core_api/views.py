@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
 from rest_framework import viewsets
+from .collectors.calendar import athletics_ireland
 
 from .models import Race, Result
 from .serializers import RaceSerializer, ResultSerializer
@@ -27,3 +28,11 @@ def demo(request):
 def home(request):
   template = loader.get_template('home.html')
   return HttpResponse(template.render())
+
+def test(request):
+   template = loader.get_template("test.html")
+   races = athletics_ireland.get_data()
+   context = {
+      "races": races
+   }
+   return HttpResponse(template.render(context, request))
