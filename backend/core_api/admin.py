@@ -2,7 +2,6 @@ from django.contrib import admin
 
 from .models import Race, Result
 
-# Register your models here.
 #admin.site.register(Race)
 @admin.register(Race)
 class RaceAdmin(admin.ModelAdmin):

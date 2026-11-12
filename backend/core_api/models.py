@@ -23,7 +23,7 @@ class Race(models.Model):
 class Result(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
-    race = models.ForeignKey(Race, on_delete=models.CASCADE, related_name="results", null=True, blank=True)
+    race = models.ForeignKey(Race, on_delete=models.CASCADE, related_name="results", null=True, blank=True) # need to remove this field
 
     # source fields
     source = models.CharField(max_length=100, blank=True, default="")
@@ -32,3 +32,29 @@ class Result(models.Model):
     # raw scraped
     rawTitle = models.CharField(max_length=200, blank=True, default="")
     rawDate = models.DateField(null=True, blank=True)
+
+class Match(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+
+    # foreign key connections
+    race = models.ForeignKey(Race, on_delete=models.CASCADE, related_name="match", null=True, blank=True)
+    result = models.ForeignKey(Result, on_delete=models.CASCADE, related_name="match", null=True, blank=True)
+
+    # for manual admin decisions
+    score = models.IntegerField()
+    explanation = models.CharField(max_length=100, blank=True, default="")
+
+    class Status(models.TextChoices):
+        PROPOSED = "proposed"
+        CONFIRMED = "confirmed"
+        REJECTED = "rejected"
+
+    status = models.CharField(max_length=10, choices=Status.choices, default=Status.PROPOSED)
+    decidedBy = models.ForeignKey("auth.User", null=True, blank=True, on_delete=models.SET_NULL)
+    decidedAt = models.DateField(null=True, blank=True)
+
+    # no 2 matches may connect same result to same race
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["race", "result"], name="unique_match_pair")
+        ]
