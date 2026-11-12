@@ -1,4 +1,5 @@
 class Collector:
-    source = ""
+    url = ""
+    HEADERS = {"User-Agent": "RaceTrace student project"}
     def fetch(self): ...
     def parse(self, raw_data): ...
