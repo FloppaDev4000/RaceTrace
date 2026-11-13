@@ -34,17 +34,28 @@ def home(request):
     template = loader.get_template('home.html')
     return HttpResponse(template.render())
 
+# for test get races button
 @require_POST
 def callGetRaces(request):
+    # deny if user is not logged in
     if not request.user.is_authenticated:
         return JsonResponse({"ok": False, "error": "Please log in."}, status=401)
+
+    # deny if user is not admin
     if not (request.user.is_active and request.user.is_staff):
         return JsonResponse({"ok": False, "error": "Permission denied."}, status=403)
     out = StringIO()
+
+    # call server command to update races
     try:
         call_command("collect_races", stdout=out)
+
+    # error if json fails
     except CommandError as e:
         return JsonResponse({"ok": False, "error": str(e)}, status=400)
+    # unknown server error
     except Exception as e:
         return JsonResponse({"ok": False, "error": str(e)}, status=500)
+
+    # success
     return JsonResponse({"ok": True, "output": out.getvalue()})
