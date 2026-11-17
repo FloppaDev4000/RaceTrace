@@ -3,8 +3,10 @@ from pathlib import Path
 from django.core.management import call_command
 from core_api.models import Race
 
+# test fixture page
 FIXTURE = Path(__file__).parent / "fixtures" / "athleticsIrelandPage.html"
 
+# test to ensure collector is idempotent
 @pytest.mark.django_db
 def test_collector_is_idempotent(monkeypatch):
     html = FIXTURE.read_text(encoding="utf-8")
