@@ -20,6 +20,7 @@ class Race(models.Model):
             models.UniqueConstraint(fields=["source", "sourceId"], name="unique_race_per_source")
         ]
 
+
 class Result(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
@@ -32,6 +33,7 @@ class Result(models.Model):
     # raw scraped
     rawTitle = models.CharField(max_length=200, blank=True, default="")
     rawDate = models.DateField(null=True, blank=True)
+
 
 class Match(models.Model):
     created = models.DateTimeField(auto_now_add=True)

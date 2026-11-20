@@ -1,7 +1,7 @@
 from pathlib import Path
 from datetime import date
-from core_api.collectors.calendar.athletics_ireland import get_data, parse_date
-
+from core_api.collectors.calendar.athletics_ireland import get_data
+from core_api.collectors.parsing import parse_date
 FIXTURE = Path(__file__).parent / "fixtures" / "athleticsIrelandPage.html"
 
 # date parser works on single day
