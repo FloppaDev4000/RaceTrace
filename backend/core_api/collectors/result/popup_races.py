@@ -26,7 +26,7 @@ class PopupRacesCollector(Collector):
 
             row = {
                 "id": "", # no id listed in card?
-                "rawDate": card.select_one("div.mobile-date-old").getText(separator=" ").split(" ")[0],
+                "rawDate": card.select_one("div.mobile-date-old").getText(separator=" ").split(" ")[0], # to remove time value
                 "rawTitle": title_el.getText(strip=True) if title_el else "",
                 "source": self.source_name,
                 "url": title_el.get("href", "") if title_el else ""
