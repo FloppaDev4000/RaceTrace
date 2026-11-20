@@ -5,6 +5,7 @@ import requests
 
 class AthleticsIrelandCollector(Collector):
     url = "https://www.athleticsireland.ie/competitions-events/fixtures-results/"
+    source_name = "athleticsireland"
 
     @classmethod
     def fetch_parse_data(self):
@@ -27,7 +28,8 @@ class AthleticsIrelandCollector(Collector):
                 "title": title_el.get_text(strip=True) if title_el else "", # only if title element exists
                 "source_url": title_el.get("href", "") if title_el else "", # only if title element exists
                 "location": text(card, "div[class*='icon--map-pin'] span"),
-                "level": text(card, "span.pill")
+                "level": text(card, "span.pill"),
+                "source": self.source_name
             }
     
             # if row has a title, the race is good. append row to "races"

@@ -1,5 +1,6 @@
 class Collector:
     url = ""
+    source_name = ""
     HEADERS = {"User-Agent": "RaceTrace student project"}
 
     @classmethod
