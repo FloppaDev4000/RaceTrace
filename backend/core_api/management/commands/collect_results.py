@@ -1,32 +1,34 @@
 #popupraces version
 
 from django.core.management.base import BaseCommand
+from core_api.collectors.result.just_run_events import JustRunEventsCollector
 from core_api.collectors.result.popup_races import PopupRacesCollector
-from core_api.models import Race
+from core_api.models import Result
 from core_api.collectors import parsing
 
 class Command(BaseCommand):
-    collectors = [PopupRacesCollector]
+    p = PopupRacesCollector()
+    j = JustRunEventsCollector()
+    collectors = [p, j]
 
-    help = "Collect results from Popup Races and store to DB" # HARD CODED
+    help = "Collect results from all results sources and store to DB"
 
     def handle(self, *args, **options):
-        races = []
+        results = []
         for c in self.collectors:
-            races += c.fetch_parse_data()
+            results += c.fetch_parse_data()
 
         # convert json to model objects
-        for r in races:
-            Race.objects.update_or_create(
-                source="athleticsireland", # HARD CODED
+        for r in results:
+            Result.objects.update_or_create(
+                source=r["source"],
                 sourceId=r["id"],
                 defaults={
                     "rawTitle": r["rawTitle"],
                     "rawDate": parsing.parse_date(r["rawDate"]),
-                    "url": r["url"],
-                    "source": r["source"]
+                    "url": r["url"]
                 },
             )
 
         # output success result
-        self.stdout.write(f"saved {len(races)} races")
+        self.stdout.write(f"saved {len(results)} results")

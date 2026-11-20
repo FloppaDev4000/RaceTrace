@@ -7,7 +7,6 @@ class AthleticsIrelandCollector(Collector):
     url = "https://www.athleticsireland.ie/competitions-events/fixtures-results/"
     source_name = "athleticsireland"
 
-    @classmethod
     def fetch_parse_data(self):
         raw_data = requests.get(self.url, self.HEADERS).text
         soup = BeautifulSoup(raw_data, "html.parser")

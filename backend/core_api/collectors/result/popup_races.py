@@ -34,13 +34,11 @@ class PopupRacesCollector(Collector):
 
             (races if row["title"] else bad).append(row if row["title"] else card)
 
-    @classmethod
     def fetch_parse_data(self):
-        all_pages = self.get_all_pages()
+        all_pages = self.get_all_pages(pages_amount=50)
         races, bad = [], []
         for p in all_pages:
             soup = BeautifulSoup(p, "html.parser")
             self.get_results_from_page(soup, races, bad)
             
-        raw_data = requests.get(self.url, self.HEADERS)
-        soup = BeautifulSoup(raw_data, "html.parser")
+        return races
